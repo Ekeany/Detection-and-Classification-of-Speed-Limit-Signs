@@ -26,7 +26,7 @@ value. This threshold was created using a blur metric based upon the paper “Th
 This algorithm quantifies the amount of blur, by comparing the variation in the pixel intensities of
 neighboring pixels in the image and a low pass filtered version of the image.
 
-*Weather* the time of day greatly affected the intensity and contrast of the images. Some images
+**Weather** the time of day greatly affected the intensity and contrast of the images. Some images
 suffered from a lack of contrast due to night time conditions and others suffered from the glare
 of the sun. In order improve the quality of the dark images the mean pixel value was calculated,
 if the image in question exceeded this threshold the contrast was adjusted using the imadjust()
@@ -35,11 +35,23 @@ the grayscale image only the glare or highest intensity pixels were left in the 
 pixels intensity in this mask were then scaled back to their neighbors’ values in the actual
 image. 
 
-View Point each image in the database was taken as a road user approached the sign
+**View Point** each image in the database was taken as a road user approached the sign
 therefore the images in the development dataset varied in size. Thus in order to correctly
 classify the development dataset, every image was resized to a standardized dimension of
 [100x100] pixels.
-Physical Damage this described any sign that contained imperfections on its face that impeded
+
+**Physical Damage** this described any sign that contained imperfections on its face that impeded
 the translation of information. Such as dirt or holes that appeared upon the final binary image. In
 order to remove these objects the bwareaopen () function was used to morphologically remove
 any objects below a certain dimension in the image.
+
+## Sign Detection
+Traffic signs are designed to stand out from their natural background, in order for road users to
+distinguish their contents. For this reason each sign is positioned at a specific height at the side
+of the road, with its own particular shape and color. For example, each speed limit sign has a
+circular shape with a strong black number surrounded by a bright red circle.
+The detection system created was predicated upon these distinctive features, with the red circle
+outlining the signs position within the image. The algorithm begins by converting the image into
+the HSV format which separates the image intensity from the Chroma or color information. This
+leads to a more accurate threshold of the colour components in the image especially when
+dealing with varying intensities across the sign such as shadows.
